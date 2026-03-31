@@ -21,12 +21,13 @@ func TestExpandConfigScaleway(t *testing.T) {
 			name: "default",
 			args: args{
 				in: map[string]interface{}{
-					"access_key": "",
-					"secret_key": "",
-					"project_id": "",
-					"region":     "",
-					"zone":       "",
-					"profile":    "",
+					"access_key":            "",
+					"secret_key":            "",
+					"project_id":            "",
+					"region":                "",
+					"zone":                  "",
+					"profile":               "",
+					"kops_controller_image": "",
 				},
 			},
 			want: _default,
@@ -44,12 +45,13 @@ func TestExpandConfigScaleway(t *testing.T) {
 
 func TestFlattenConfigScalewayInto(t *testing.T) {
 	_default := map[string]interface{}{
-		"access_key": "",
-		"secret_key": "",
-		"project_id": "",
-		"region":     "",
-		"zone":       "",
-		"profile":    "",
+		"access_key":            "",
+		"secret_key":            "",
+		"project_id":            "",
+		"region":                "",
+		"zone":                  "",
+		"profile":               "",
+		"kops_controller_image": "",
 	}
 	type args struct {
 		in config.Scaleway
@@ -127,6 +129,17 @@ func TestFlattenConfigScalewayInto(t *testing.T) {
 				in: func() config.Scaleway {
 					subject := config.Scaleway{}
 					subject.Profile = ""
+					return subject
+				}(),
+			},
+			want: _default,
+		},
+		{
+			name: "KopsControllerImage - default",
+			args: args{
+				in: func() config.Scaleway {
+					subject := config.Scaleway{}
+					subject.KopsControllerImage = ""
 					return subject
 				}(),
 			},
@@ -146,12 +159,13 @@ func TestFlattenConfigScalewayInto(t *testing.T) {
 
 func TestFlattenConfigScaleway(t *testing.T) {
 	_default := map[string]interface{}{
-		"access_key": "",
-		"secret_key": "",
-		"project_id": "",
-		"region":     "",
-		"zone":       "",
-		"profile":    "",
+		"access_key":            "",
+		"secret_key":            "",
+		"project_id":            "",
+		"region":                "",
+		"zone":                  "",
+		"profile":               "",
+		"kops_controller_image": "",
 	}
 	type args struct {
 		in config.Scaleway
@@ -229,6 +243,17 @@ func TestFlattenConfigScaleway(t *testing.T) {
 				in: func() config.Scaleway {
 					subject := config.Scaleway{}
 					subject.Profile = ""
+					return subject
+				}(),
+			},
+			want: _default,
+		},
+		{
+			name: "KopsControllerImage - default",
+			args: args{
+				in: func() config.Scaleway {
+					subject := config.Scaleway{}
+					subject.KopsControllerImage = ""
 					return subject
 				}(),
 			},

@@ -150,6 +150,7 @@ The following arguments are supported:
 - `region` - (Optional) - String - Region defines the Scaleway region (e.g. fr-par, nl-ams).
 - `zone` - (Optional) - String - Zone defines the Scaleway zone (e.g. fr-par-1, nl-ams-1).
 - `profile` - (Optional) - String - Profile defines the Scaleway profile to load from config file.
+- `kops_controller_image` - (Optional) - String - KopsControllerImage overrides the kops-controller container image.
 
 ### klog
 

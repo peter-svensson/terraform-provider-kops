@@ -11,12 +11,13 @@ var _ = Schema
 func ConfigScaleway() *schema.Resource {
 	res := &schema.Resource{
 		Schema: map[string]*schema.Schema{
-			"access_key": Sensitive(OptionalString()),
-			"secret_key": Sensitive(OptionalString()),
-			"project_id": OptionalString(),
-			"region":     OptionalString(),
-			"zone":       OptionalString(),
-			"profile":    OptionalString(),
+			"access_key":            Sensitive(OptionalString()),
+			"secret_key":            Sensitive(OptionalString()),
+			"project_id":            OptionalString(),
+			"region":                OptionalString(),
+			"zone":                  OptionalString(),
+			"profile":               OptionalString(),
+			"kops_controller_image": OptionalString(),
 		},
 	}
 
@@ -46,6 +47,9 @@ func ExpandConfigScaleway(in map[string]interface{}) config.Scaleway {
 		Profile: func(in interface{}) string {
 			return string(ExpandString(in))
 		}(in["profile"]),
+		KopsControllerImage: func(in interface{}) string {
+			return string(ExpandString(in))
+		}(in["kops_controller_image"]),
 	}
 }
 
@@ -68,6 +72,9 @@ func FlattenConfigScalewayInto(in config.Scaleway, out map[string]interface{}) {
 	out["profile"] = func(in string) interface{} {
 		return FlattenString(string(in))
 	}(in.Profile)
+	out["kops_controller_image"] = func(in string) interface{} {
+		return FlattenString(string(in))
+	}(in.KopsControllerImage)
 }
 
 func FlattenConfigScaleway(in config.Scaleway) map[string]interface{} {
