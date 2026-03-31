@@ -7,6 +7,8 @@ type Provider struct {
 	Aws *Aws
 	// OpenStack contains the openstack configuration options
 	Openstack *Openstack
+	// Scaleway contains the Scaleway configuration options
+	Scaleway *Scaleway
 	// Klog contains the klog configuration options
 	Klog *Klog
 	// Mock sets up a cloud mock for integration tests

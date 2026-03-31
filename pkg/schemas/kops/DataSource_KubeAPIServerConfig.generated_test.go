@@ -26,6 +26,7 @@ func TestExpandDataSourceKubeAPIServerConfig(t *testing.T) {
 					"log_format":                                   "",
 					"log_level":                                    0,
 					"cloud_provider":                               "",
+					"compaction_interval":                          nil,
 					"secure_port":                                  0,
 					"insecure_port":                                nil,
 					"address":                                      "",
@@ -153,6 +154,7 @@ func TestFlattenDataSourceKubeAPIServerConfigInto(t *testing.T) {
 		"log_format":                                   "",
 		"log_level":                                    0,
 		"cloud_provider":                               "",
+		"compaction_interval":                          nil,
 		"secure_port":                                  0,
 		"insecure_port":                                nil,
 		"address":                                      "",
@@ -324,6 +326,17 @@ func TestFlattenDataSourceKubeAPIServerConfigInto(t *testing.T) {
 				in: func() kops.KubeAPIServerConfig {
 					subject := kops.KubeAPIServerConfig{}
 					subject.CloudProvider = ""
+					return subject
+				}(),
+			},
+			want: _default,
+		},
+		{
+			name: "CompactionInterval - default",
+			args: args{
+				in: func() kops.KubeAPIServerConfig {
+					subject := kops.KubeAPIServerConfig{}
+					subject.CompactionInterval = nil
 					return subject
 				}(),
 			},
@@ -1503,6 +1516,7 @@ func TestFlattenDataSourceKubeAPIServerConfig(t *testing.T) {
 		"log_format":                                   "",
 		"log_level":                                    0,
 		"cloud_provider":                               "",
+		"compaction_interval":                          nil,
 		"secure_port":                                  0,
 		"insecure_port":                                nil,
 		"address":                                      "",
@@ -1674,6 +1688,17 @@ func TestFlattenDataSourceKubeAPIServerConfig(t *testing.T) {
 				in: func() kops.KubeAPIServerConfig {
 					subject := kops.KubeAPIServerConfig{}
 					subject.CloudProvider = ""
+					return subject
+				}(),
+			},
+			want: _default,
+		},
+		{
+			name: "CompactionInterval - default",
+			args: args{
+				in: func() kops.KubeAPIServerConfig {
+					subject := kops.KubeAPIServerConfig{}
+					subject.CompactionInterval = nil
 					return subject
 				}(),
 			},

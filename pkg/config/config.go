@@ -51,6 +51,9 @@ func ConfigureProvider(ctx context.Context, d *schema.ResourceData) (interface{}
 	if err := initOpenstackCredentials(providerConfig.Openstack); err != nil {
 		return nil, diag.FromErr(err)
 	}
+	if err := initScalewayCredentials(providerConfig.Scaleway); err != nil {
+		return nil, diag.FromErr(err)
+	}
 	if providerConfig.Mock {
 		initMock(ctx)
 	}
@@ -137,6 +140,19 @@ func initOpenstackCredentials(config *config.Openstack) error {
 	setEnvVarSimple("OS_REGION_NAME", config.RegionName)
 	setEnvVarSimple("OS_APPLICATION_CREDENTIAL_ID", config.ApplicationCredentialId)
 	setEnvVarSimple("OS_APPLICATION_CREDENTIAL_SECRET", config.ApplicationCredentialSecret)
+	return nil
+}
+
+func initScalewayCredentials(config *config.Scaleway) error {
+	if config == nil {
+		return nil
+	}
+	setEnvVarSimple("SCW_ACCESS_KEY", config.AccessKey)
+	setEnvVarSimple("SCW_SECRET_KEY", config.SecretKey)
+	setEnvVarSimple("SCW_DEFAULT_PROJECT_ID", config.ProjectId)
+	setEnvVarSimple("SCW_DEFAULT_REGION", config.Region)
+	setEnvVarSimple("SCW_DEFAULT_ZONE", config.Zone)
+	setEnvVarSimple("SCW_PROFILE", config.Profile)
 	return nil
 }
 

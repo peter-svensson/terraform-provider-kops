@@ -111,6 +111,7 @@ func ResourceKubeletConfigSpec() *schema.Resource {
 			"shutdown_grace_period_critical_pods":      OptionalDuration(),
 			"memory_swap_behavior":                     OptionalString(),
 			"crash_loop_back_off_max_container_restart_period": OptionalDuration(),
+			"kube_api_qps": OptionalInt(),
 		},
 	}
 
@@ -144,17 +145,7 @@ func ExpandResourceKubeletConfigSpec(in map[string]interface{}) kops.KubeletConf
 					}(in)
 				}(in[0].(map[string]interface{})["value"])
 			}
-			return func(in interface{}) *bool {
-				if in == nil {
-					return nil
-				}
-				if _, ok := in.([]interface{}); ok && len(in.([]interface{})) == 0 {
-					return nil
-				}
-				return func(in bool) *bool {
-					return &in
-				}(bool(ExpandBool(in)))
-			}(in)
+			return nil
 		}(in["anonymous_auth"]),
 		AuthorizationMode: func(in interface{}) string {
 			return string(ExpandString(in))
@@ -1065,17 +1056,7 @@ func ExpandResourceKubeletConfigSpec(in map[string]interface{}) kops.KubeletConf
 					}(in)
 				}(in[0].(map[string]interface{})["value"])
 			}
-			return func(in interface{}) *bool {
-				if in == nil {
-					return nil
-				}
-				if _, ok := in.([]interface{}); ok && len(in.([]interface{})) == 0 {
-					return nil
-				}
-				return func(in bool) *bool {
-					return &in
-				}(bool(ExpandBool(in)))
-			}(in)
+			return nil
 		}(in["cpu_cfs_quota"]),
 		CPUCFSQuotaPeriod: func(in interface{}) *meta.Duration {
 			if in == nil {
@@ -1377,6 +1358,25 @@ func ExpandResourceKubeletConfigSpec(in map[string]interface{}) kops.KubeletConf
 				}(ExpandDuration(in))
 			}(in)
 		}(in["crash_loop_back_off_max_container_restart_period"]),
+		KubeAPIQPS: func(in interface{}) *int32 {
+			if in == nil {
+				return nil
+			}
+			if reflect.DeepEqual(in, reflect.Zero(reflect.TypeOf(in)).Interface()) {
+				return nil
+			}
+			return func(in interface{}) *int32 {
+				if in == nil {
+					return nil
+				}
+				if _, ok := in.([]interface{}); ok && len(in.([]interface{})) == 0 {
+					return nil
+				}
+				return func(in int32) *int32 {
+					return &in
+				}(int32(ExpandInt(in)))
+			}(in)
+		}(in["kube_api_qps"]),
 	}
 }
 
@@ -2109,6 +2109,16 @@ func FlattenResourceKubeletConfigSpecInto(in kops.KubeletConfigSpec, out map[str
 			}(*in)
 		}(in)
 	}(in.CrashLoopBackOffMaxContainerRestartPeriod)
+	out["kube_api_qps"] = func(in *int32) interface{} {
+		return func(in *int32) interface{} {
+			if in == nil {
+				return nil
+			}
+			return func(in int32) interface{} {
+				return FlattenInt(int(in))
+			}(*in)
+		}(in)
+	}(in.KubeAPIQPS)
 }
 
 func FlattenResourceKubeletConfigSpec(in kops.KubeletConfigSpec) map[string]interface{} {

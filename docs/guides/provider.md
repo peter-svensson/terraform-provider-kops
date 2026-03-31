@@ -85,6 +85,7 @@ The following arguments are supported:
 - `state_store` - (Required) - String - StateStore defines the state store used by kops.
 - `aws` - (Optional) - [aws](#aws) - Aws contains the aws configuration options.
 - `openstack` - (Optional) - [openstack](#openstack) - OpenStack contains the openstack configuration options.
+- `scaleway` - (Optional) - [scaleway](#scaleway) - Scaleway contains the Scaleway configuration options.
 - `klog` - (Optional) - [klog](#klog) - Klog contains the klog configuration options.
 - `mock` - (Optional) - Bool - Mock sets up a cloud mock for integration tests.
 - `feature_flags` - (Optional) - List(String) - FeatureFlags contains feature flags to enable or disable.
@@ -136,6 +137,19 @@ The following arguments are supported:
 - `region_name` - (Optional) - String
 - `application_credential_id` - (Optional) - String
 - `application_credential_secret` - (Optional) - String
+
+### scaleway
+
+#### Argument Reference
+
+The following arguments are supported:
+
+- `access_key` - (Optional) - (Sensitive) - String - AccessKey defines the Scaleway access key.
+- `secret_key` - (Optional) - (Sensitive) - String - SecretKey defines the Scaleway secret key.
+- `project_id` - (Optional) - String - ProjectId defines the Scaleway project ID.
+- `region` - (Optional) - String - Region defines the Scaleway region (e.g. fr-par, nl-ams).
+- `zone` - (Optional) - String - Zone defines the Scaleway zone (e.g. fr-par-1, nl-ams-1).
+- `profile` - (Optional) - String - Profile defines the Scaleway profile to load from config file.
 
 ### klog
 

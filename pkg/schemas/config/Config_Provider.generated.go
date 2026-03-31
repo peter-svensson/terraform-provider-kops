@@ -14,6 +14,7 @@ func ConfigProvider() *schema.Resource {
 			"state_store":   RequiredString(),
 			"aws":           OptionalStruct(ConfigAws()),
 			"openstack":     OptionalStruct(ConfigOpenstack()),
+			"scaleway":      OptionalStruct(ConfigScaleway()),
 			"klog":          OptionalStruct(ConfigKlog()),
 			"mock":          OptionalBool(),
 			"feature_flags": OptionalList(String()),
@@ -67,6 +68,24 @@ func ExpandConfigProvider(in map[string]interface{}) config.Provider {
 				}(in))
 			}(in)
 		}(in["openstack"]),
+		Scaleway: func(in interface{}) *config.Scaleway {
+			return func(in interface{}) *config.Scaleway {
+				if in == nil {
+					return nil
+				}
+				if _, ok := in.([]interface{}); ok && len(in.([]interface{})) == 0 {
+					return nil
+				}
+				return func(in config.Scaleway) *config.Scaleway {
+					return &in
+				}(func(in interface{}) config.Scaleway {
+					if in, ok := in.([]interface{}); ok && len(in) == 1 && in[0] != nil {
+						return ExpandConfigScaleway(in[0].(map[string]interface{}))
+					}
+					return config.Scaleway{}
+				}(in))
+			}(in)
+		}(in["scaleway"]),
 		Klog: func(in interface{}) *config.Klog {
 			return func(in interface{}) *config.Klog {
 				if in == nil {
@@ -131,6 +150,18 @@ func FlattenConfigProviderInto(in config.Provider, out map[string]interface{}) {
 			}(*in)
 		}(in)
 	}(in.Openstack)
+	out["scaleway"] = func(in *config.Scaleway) interface{} {
+		return func(in *config.Scaleway) interface{} {
+			if in == nil {
+				return nil
+			}
+			return func(in config.Scaleway) interface{} {
+				return func(in config.Scaleway) []interface{} {
+					return []interface{}{FlattenConfigScaleway(in)}
+				}(in)
+			}(*in)
+		}(in)
+	}(in.Scaleway)
 	out["klog"] = func(in *config.Klog) interface{} {
 		return func(in *config.Klog) interface{} {
 			if in == nil {

@@ -300,6 +300,7 @@ The following arguments are supported:
 - `shutdown_grace_period_critical_pods` - (Computed) - Duration - ShutdownGracePeriodCriticalPods specifies the duration used to terminate critical pods during a node shutdown.<br />Default: 10s.
 - `memory_swap_behavior` - (Computed) - String - MemorySwapBehavior defines how swap is used by container workloads.<br />Supported values: LimitedSwap, "UnlimitedSwap.
 - `crash_loop_back_off_max_container_restart_period` - (Computed) - Duration - CrashLoopBackOffMaxContainerRestartPeriod is the maximum duration the backoff delay can accrue to for container restarts, minimum 1 second, maximum 300 seconds. If not set, defaults to the internal crashloopbackoff maximum (300s).
+- `kube_api_qps` - (Computed) - Int - KubeAPIQPS Burst to use while talking with kubernetes apiserver. (default 50).
 
 ### mixed_instances_policy_spec
 
@@ -327,6 +328,7 @@ The following arguments are supported:
 
 - `cpu` - (Computed) - [min_max_spec](#min_max_spec)
 - `memory` - (Computed) - [min_max_spec](#min_max_spec)
+- `excluded_instance_types` - (Computed) - List(String) - ExcludedInstanceTypes is a list of instance types which will not be used by the instance group.<br />You can use strings with one or more wild cards, represented by an asterisk (*), to exclude an<br />instance type, size, or generation.
 
 ### min_max_spec
 
