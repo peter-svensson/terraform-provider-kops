@@ -179,23 +179,11 @@ func ExpandResourceCalicoNetworkingSpec(in map[string]interface{}) kops.CalicoNe
 			return string(ExpandString(in))
 		}(in["vxlan_mode"]),
 		WireguardEnabled: func(in interface{}) *bool {
-			if in == nil {
+			if in == nil || in == false {
 				return nil
 			}
-			if reflect.DeepEqual(in, reflect.Zero(reflect.TypeOf(in)).Interface()) {
-				return nil
-			}
-			return func(in interface{}) *bool {
-				if in == nil {
-					return nil
-				}
-				if _, ok := in.([]interface{}); ok && len(in.([]interface{})) == 0 {
-					return nil
-				}
-				return func(in bool) *bool {
-					return &in
-				}(bool(ExpandBool(in)))
-			}(in)
+			v := bool(ExpandBool(in))
+			return &v
 		}(in["wireguard_enabled"]),
 	}
 }
@@ -301,14 +289,10 @@ func FlattenResourceCalicoNetworkingSpecInto(in kops.CalicoNetworkingSpec, out m
 		return FlattenString(string(in))
 	}(in.VXLANMode)
 	out["wireguard_enabled"] = func(in *bool) interface{} {
-		return func(in *bool) interface{} {
-			if in == nil {
-				return nil
-			}
-			return func(in bool) interface{} {
-				return FlattenBool(bool(in))
-			}(*in)
-		}(in)
+		if in == nil {
+			return FlattenBool(false)
+		}
+		return FlattenBool(bool(*in))
 	}(in.WireguardEnabled)
 }
 

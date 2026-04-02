@@ -24,7 +24,6 @@ func TestExpandConfigProvider(t *testing.T) {
 					"state_store":   "",
 					"aws":           nil,
 					"openstack":     nil,
-					"scaleway":      nil,
 					"klog":          nil,
 					"mock":          false,
 					"feature_flags": func() []interface{} { return nil }(),
@@ -96,17 +95,6 @@ func TestFlattenConfigProviderInto(t *testing.T) {
 				in: func() config.Provider {
 					subject := config.Provider{}
 					subject.Openstack = nil
-					return subject
-				}(),
-			},
-			want: _default,
-		},
-		{
-			name: "Scaleway - default",
-			args: args{
-				in: func() config.Provider {
-					subject := config.Provider{}
-					subject.Scaleway = nil
 					return subject
 				}(),
 			},
@@ -210,17 +198,6 @@ func TestFlattenConfigProvider(t *testing.T) {
 				in: func() config.Provider {
 					subject := config.Provider{}
 					subject.Openstack = nil
-					return subject
-				}(),
-			},
-			want: _default,
-		},
-		{
-			name: "Scaleway - default",
-			args: args{
-				in: func() config.Provider {
-					subject := config.Provider{}
-					subject.Scaleway = nil
 					return subject
 				}(),
 			},

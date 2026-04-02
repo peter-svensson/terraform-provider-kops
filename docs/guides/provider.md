@@ -144,13 +144,13 @@ The following arguments are supported:
 
 The following arguments are supported:
 
-- `access_key` - (Optional) - (Sensitive) - String - AccessKey defines the Scaleway access key.
-- `secret_key` - (Optional) - (Sensitive) - String - SecretKey defines the Scaleway secret key.
+- `access_key` - (Optional) - String - AccessKey defines the Scaleway access key.
+- `secret_key` - (Optional) - String - SecretKey defines the Scaleway secret key.
 - `project_id` - (Optional) - String - ProjectId defines the Scaleway project ID.
 - `region` - (Optional) - String - Region defines the Scaleway region (e.g. fr-par, nl-ams).
 - `zone` - (Optional) - String - Zone defines the Scaleway zone (e.g. fr-par-1, nl-ams-1).
 - `profile` - (Optional) - String - Profile defines the Scaleway profile to load from config file.
-- `kops_controller_image` - (Optional) - String - KopsControllerImage overrides the kops-controller container image.
+- `kops_controller_image` - (Optional) - String - KopsControllerImage defines a custom kops-controller container image.
 
 ### klog
 

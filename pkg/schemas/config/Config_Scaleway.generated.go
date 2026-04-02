@@ -11,8 +11,8 @@ var _ = Schema
 func ConfigScaleway() *schema.Resource {
 	res := &schema.Resource{
 		Schema: map[string]*schema.Schema{
-			"access_key":            Sensitive(OptionalString()),
-			"secret_key":            Sensitive(OptionalString()),
+			"access_key":            OptionalString(),
+			"secret_key":            OptionalString(),
 			"project_id":            OptionalString(),
 			"region":                OptionalString(),
 			"zone":                  OptionalString(),

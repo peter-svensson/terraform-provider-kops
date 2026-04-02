@@ -13,6 +13,6 @@ type Scaleway struct {
 	Zone string
 	// Profile defines the Scaleway profile to load from config file
 	Profile string
-	// KopsControllerImage overrides the kops-controller container image
+	// KopsControllerImage defines a custom kops-controller container image
 	KopsControllerImage string
 }
