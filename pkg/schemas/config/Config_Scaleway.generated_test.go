@@ -28,6 +28,7 @@ func TestExpandConfigScaleway(t *testing.T) {
 					"zone":                  "",
 					"profile":               "",
 					"kops_controller_image": "",
+					"dns_controller_image":  "",
 				},
 			},
 			want: _default,
@@ -52,6 +53,7 @@ func TestFlattenConfigScalewayInto(t *testing.T) {
 		"zone":                  "",
 		"profile":               "",
 		"kops_controller_image": "",
+		"dns_controller_image":  "",
 	}
 	type args struct {
 		in config.Scaleway

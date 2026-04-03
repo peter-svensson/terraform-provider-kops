@@ -15,4 +15,6 @@ type Scaleway struct {
 	Profile string
 	// KopsControllerImage defines a custom kops-controller container image
 	KopsControllerImage string
+	// DnsControllerImage defines a custom dns-controller container image
+	DnsControllerImage string
 }

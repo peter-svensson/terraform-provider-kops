@@ -18,6 +18,7 @@ func ConfigScaleway() *schema.Resource {
 			"zone":                  OptionalString(),
 			"profile":               OptionalString(),
 			"kops_controller_image": OptionalString(),
+			"dns_controller_image":  OptionalString(),
 		},
 	}
 
@@ -50,6 +51,9 @@ func ExpandConfigScaleway(in map[string]interface{}) config.Scaleway {
 		KopsControllerImage: func(in interface{}) string {
 			return string(ExpandString(in))
 		}(in["kops_controller_image"]),
+		DnsControllerImage: func(in interface{}) string {
+			return string(ExpandString(in))
+		}(in["dns_controller_image"]),
 	}
 }
 
@@ -75,6 +79,9 @@ func FlattenConfigScalewayInto(in config.Scaleway, out map[string]interface{}) {
 	out["kops_controller_image"] = func(in string) interface{} {
 		return FlattenString(string(in))
 	}(in.KopsControllerImage)
+	out["dns_controller_image"] = func(in string) interface{} {
+		return FlattenString(string(in))
+	}(in.DnsControllerImage)
 }
 
 func FlattenConfigScaleway(in config.Scaleway) map[string]interface{} {

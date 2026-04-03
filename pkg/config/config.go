@@ -154,6 +154,7 @@ func initScalewayCredentials(config *config.Scaleway) error {
 	setEnvVarSimple("SCW_DEFAULT_ZONE", config.Zone)
 	setEnvVarSimple("SCW_PROFILE", config.Profile)
 	setEnvVarSimple("KOPSCONTROLLER_IMAGE", config.KopsControllerImage)
+	setEnvVarSimple("DNSCONTROLLER_IMAGE", config.DnsControllerImage)
 	return nil
 }
 
